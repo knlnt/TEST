@@ -1,0 +1,151 @@
+html, body, #app, header, #search, #basket, #list{display:flex}
+
+html, body{
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+	background:#bdc3c7;
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	font-family:Arial
+}
+
+#app, #infoProduct{
+	width:800px;
+	height:500px;
+	background:#ecf0f1;
+	border-radius:5px;
+	border:1px solid #7f8c8d;
+	padding:1%;
+	flex-direction:column
+}
+#infoProduct{
+	width:90%;
+	background:white;
+	box-shadow:0 0 10px black
+}
+
+header{
+	position:relative;
+	width:100%;
+	height:10%;
+	justify-content:space-between;
+	align-self:baseline;
+	align-items:baseline;
+	border-bottom:1px solid #7f8c8d;
+}
+#msg{
+	position:absolute;
+	width:100%;
+	height:100%;
+	text-align:center;
+	color:white;
+	font-size:16px;
+	z-index:2;
+}
+#search,#basket{
+	font-size:14px;
+	padding:9px 23px;
+	border-radius:4px;
+}
+#search{
+	outline:none;
+	border:1px solid #95a5a6;
+	width:50%;
+}
+#filter,#sortSet{
+	font-size:13px;
+	color:#95a5a6;
+	text-decoration:underline;
+	cursor:pointer
+}
+#basket{
+	position:relative;
+	background:#27ae60;
+	color:white;
+	cursor:pointer;
+	transition: background .5s;
+}
+#basket:hover{background:#2ecc71}
+#countProduct{
+	position:absolute;
+	z-index:2;
+	background:#e74c3c;
+	color:white;
+	width:20px;
+	height:20px;
+	right:3px;
+	top:-5px;
+	line-height:20px;
+	font-weight:bold;
+	font-size:12px;
+	border-radius:100%;
+	text-align:center;
+	vertical-align:middle;
+}
+
+#sortSet{
+	width:100%;
+	height:4%;
+	margin:1% 0 0 0;
+	text-decoration:none;
+	cursor:default
+}
+.sort{
+	text-decoration:underline;
+	cursor:pointer
+}
+
+.list{
+	width:100%;
+	height:85%;
+	overflow:auto;
+	margin:0;
+	padding:0;
+	flex-direction:column
+}
+.list li{
+	background:white;
+	width:98%;
+	height:50px;
+	padding:1%;
+	margin:1% 0 0 0;
+	border-radius:4px;
+	flex-shrink:0;
+}
+.listActive li{background:rgba(46,204,113,0.2)}
+.list li h4{margin:0 0 5px 0}
+.list li p{font-size:12px; margin:0 0 5px 0}
+.list li span{color:#95a5a6; font-size:10px}
+
+
+#filters label{
+	font-size:12px;
+	color:#95a5a6
+}
+#filters span, #filters label#showTypes{
+	cursor:pointer;
+	font-size:16px;
+	font-weight:bold;
+	color:#7f8c8d
+}
+#filters ul{
+	background:white;
+	border:1px solid #7f8c8d;
+	border-radius:3px;
+	padding:0
+}
+#filters ul li{
+	font-weight:bold;
+	color:#7f8c8d;
+	list-style:none;
+	margin:0;
+	padding:10px;
+	cursor:pointer
+}
+.typesActive{
+	color:white !important;
+	background:#2ecc71
+}

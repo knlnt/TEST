@@ -1,0 +1,57 @@
+<!document html>
+<html>
+<head>
+	<title>Список покупок</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+</head>
+<body>
+	<main id="app">
+		<header v-if="!filtersShow">
+			<input id="search" placeholder="Поиск" v-model="search" @input="sortMyList">
+			Сумма: {{ sum }}руб
+			<span id="filter" @click="filtersShow = true">Фильтрация</span>
+			<div id="basket" @click="updateList">{{ basketShow ? 'Товары' : 'Корзина' }}<div id="countProduct" v-if="!basketShow && !dragAndDrop && purchases.length>0">{{ purchases.length }}</div></div>
+			<div v-if="dragAndDrop" id="msg" :style="{background: bgMsg}" @dragenter="return dragEnter(event)" @drop="return setOrDelProduct(event)" @dragover="return dragOver(event)"><p>{{ basketShow ? 'Убрать товар из корзины' : 'Добавить товар в корзину' }}</p></div>
+		</header>
+		<header id="filters" v-if="filtersShow">
+			<span @click="filtersShow = false">Назад</span>
+			<label>Цена от </label>
+			<input type="numbers" v-model="filters.min" @input="sortMyList">
+			<label>до</label>
+			<input type="numbers" v-model="filters.max" @input="sortMyList">
+			<label id="showTypes" @click="showTypes = !showTypes">Показать</label>
+			<ul v-if="showTypes">
+				<li v-for="(type,index) in types" :class="{typesActive: filters.showTypes[index]}" @mousedown="filters.showTypes[index] = !filters.showTypes[index]" @mouseup="sortMyList">{{ type }}</li>
+			</ul>
+		</header>
+		<div id="sortSet">
+			<span>Сортировка <span v-for="(sort,index) in sortList"><span v-if="sort.val" class="sort" @click="setNewSort(index)">{{ sort.title }}</span></span> | <span class="sort" @click="revList">обратить список</span></span>
+		</div>
+		<ul v-if="!basketShow" class="list">
+			<li v-for="product in list" draggable="true" @dragstart="dragStart(event, product.id)" @dragend="dragEnd(event)" @click="infoForProduct(product.id)">
+				<h4>{{ product.title }}</h4>
+				<p>Цена: {{ product.price }}руб</p>
+				<span>Тип: {{ types[product.type] }}</span>
+				<span v-if="product.view" style="color:#f1c40f">Просмотрено</span>
+			</li>
+		</ul>
+		<ul v-if="basketShow" class="list" :class="{ listActive: basketShow }">
+			<li v-for="product in list" draggable="true" @dragstart="dragStart(event, product.id)" @dragend="dragEnd(event)" @click="infoForProduct(product.id)">
+				<h4>{{ product.title }}</h4>
+				<p>Цена: {{ product.price }}руб</p>
+				<span>Тип: {{ types[product.type] }}</span>
+				<span v-if="product.view" style="color:#f1c40f">Просмотрено</span>
+			</li>
+		</ul>
+
+		<div v-if="showInfoForProduct" id="infoProduct">
+			<span @click="showInfoForProduct = false">Закрыть</span>
+			<h3>{{ infoProduct.title }}</h3>
+			<p>{{ infoProduct.info }}</p>
+			<h5>Цена {{ infoProduct.price }}руб</h5>
+		</div>
+	</main>
+</body>
+</html>
